@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Stanley Parable: Ultra Deluxe</title>
+<link rel="icon" href="data:,">
+<style>
+html,body{margin:0;width:100%;height:100%;background:#101010}
+canvas{display:block;width:100%;height:100%;outline:none}
+#status{position:fixed;inset:0;display:grid;place-items:center;color:white;font:16px system-ui;pointer-events:none}
+</style>
+</head>
+<body>
+<canvas id="game" tabindex="0"></canvas>
+<div id="status" role="status">Loading…</div>
+<script src="https://cdn.jsdelivr.net/gh/3cfl/stanley-parable-ud-webport@76ee0793a1d83385c9c463b2eb53c2fc9d618a78/Stanley.loader.js"></script>
+<script>
+const canvas = document.querySelector('#game');
+const status = document.querySelector('#status');
+createUnityInstance(canvas, {
+    dataUrl: 'https://ivy.rest/k/ivy/the-stanley-parable-ultra-deluxe/play/Build/Stanley.data.unityweb',
+    frameworkUrl: 'https://ivy.rest/k/ivy/the-stanley-parable-ultra-deluxe/play/Build/Stanley.framework.js.unityweb',
+    codeUrl: 'https://ivy.rest/k/ivy/the-stanley-parable-ultra-deluxe/play/Build/Stanley.wasm.unityweb',
+    streamingAssetsUrl: 'https://ivy.rest/k/ivy/the-stanley-parable-ultra-deluxe/play/StreamingAssets',
+    companyName: 'Crows Crows Crows',
+    productName: 'The Stanley Parable: Ultra Deluxe',
+    productVersion: '1.0',
+    devicePixelRatio: 1,
+    autoSyncPersistentDataPath: location.protocol !== 'file:',
+    cacheControl: () => 'no-store'
+}, progress => {
+    status.textContent = 'Loading… ' + Math.round(progress * 100) + '%';
+}).then(game => {
+    window.stanley = game;
+    status.remove();
+}).catch(error => {
+    status.textContent = String(error);
+    console.error(error);
+});
+</script>
+</body>
+</html>
