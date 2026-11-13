@@ -1,0 +1,7 @@
+ManifestFileVersion: 0
+CRC: 3194340914
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: voice.default
+      Dependencies: {}
